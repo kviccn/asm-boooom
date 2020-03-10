@@ -14,4 +14,4 @@ qemu: boot.bin
 	DISPLAY=:0 qemu-system-i386 boot.bin
 
 clean:
-	rm -rf boot.bin boot.o
+	rm -f boot.bin boot.o
