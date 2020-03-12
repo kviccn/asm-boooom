@@ -15,19 +15,19 @@ movw %ax, %es
 # 因为 %ax 足够保存 9527, 所以将高 16位(%dx) 清空
 xorw %dx, %dx
 movw $DIVIDEND, %ax
-movw $DIVISOR, %bx
-movw $COUNT_OF_DIGITS, %cx
+movw $DIVISOR, %cx
+movw $store, %bx
 
 # 初始化索引寄存器 (倒序保存各个数位)
 movw $COUNT_OF_DIGITS - 1, %si
 split:
-  divw %bx
+  divw %cx
   # 除法指令执行后 商保存在 %ax 中, 余数保存在 %dx 中
   # 因为除数是 10, 所以余数小于 10, 即 %dl 中就是余数
-  movb %dl, store(%si)
+  movb %dl, (%bx, %si)
   xorw %dx, %dx
   decw %si
-  loop split
+  jns split
 
 movw $COUNT_OF_DIGITS, %cx
 xorw %si, %si
