@@ -2,3 +2,8 @@
 *.elf
 *.bin
 *.o
+*.asm
+
+kernel
+boot
+sign
